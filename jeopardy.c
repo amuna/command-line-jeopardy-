@@ -39,9 +39,12 @@ int main(int argc, char *argv[])
     
     // Buffer for user input
     char buffer[BUFFER_LEN] = { 0 };
+    char cat[BUFFER_LEN] = { 0 };
+    int value;
 
     // Display the game introduction and initialize the questions
     initialize_game();
+    display_categories();
 
     // Prompt for players names
     
@@ -52,14 +55,35 @@ int main(int argc, char *argv[])
     while (game_state)
     {
         // EXAMPLE: This line gets a line of input from the user
-        fgets(buffer, BUFFER_LEN, stdin);
-        printf("[before]%s[after]", buffer);
+      //  fgets(buffer, BUFFER_LEN, stdin);
+      //  printf("[before]%s[after]", buffer);
 
-		if (strcmp(buffer, "hello\n") == 0) printf(":)\n");
-		if (strcmp(buffer, "world\n") == 0) printf(":)\n");
+	//	if (strcmp(buffer, "hello\n") == 0) printf(":)\n");
+	//	if (strcmp(buffer, "world\n") == 0) printf(":)\n");
 
         // Call functions from the questions and players source files
+        printf("Choose a category: ");
+        scanf("%s", cat);
+        printf("Catagory chosen: %s\n", cat);
 
+        printf("Choose points:");
+        scanf("%d", &value);
+        printf("Value chosen:%d\n", value);
+
+        while (already_answered(cat, value)) {
+            printf("Not valid category/value. Please enter again");
+            
+            printf("Choose a category: ");
+            scanf("%s", cat);
+            printf("Catagory chosen: %s\n", cat);
+
+            printf("Choose points:");
+            scanf("%d", &value);
+            printf("Value chosen:%d\n", value);
+        }
+        display_question(cat, value);
+        
+        
         // Execute the game until all questions are answered
 
         // Display the final results and exit
