@@ -90,3 +90,17 @@ int main(int argc, char *argv[])
     }
     return EXIT_SUCCESS;
 }
+
+void tokenize(char *input, char **tokens) {
+    char *str;
+
+    if((str = strtok(input, "")) != NULL)
+        if(strcmp(str, "who") != 0 && strcmp(str, "what") != 0)
+            return;
+
+    if((str = strtok(NULL, "")) != NULL)
+        if(strcmp(str, "is") != 0)
+            return;
+
+    *tokens = strtok(NULL, "\n");
+}
