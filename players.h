@@ -12,7 +12,7 @@
 struct player {
     char name[MAX_LEN];
     int score;
-};
+}player[4];
 
 // Returns true if the player name matches one of the existing players
 extern bool player_exists(struct player *players, int num_players, char *name);
