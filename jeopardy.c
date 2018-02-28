@@ -104,3 +104,25 @@ void tokenize(char *input, char **tokens) {
 
     *tokens = strtok(NULL, "\n");
 }
+
+void show_results(player *players, int num_players) {
+    int name = 0;
+    int score = 0;
+    int winner = 0;
+
+    for(int i = 0; i < num_players; i++) {
+        if((int) strlen(players[i].name) > name)
+            name = strlen(players[i].name);
+
+        if(players[i].score > score) {
+            score = players[i].score;
+            winner = i;
+        }
+    }
+
+    printf("Scores: \n");
+    for(int i = 0; i < num_players; i++)
+        printf("%*s: %d\n", name + 1, players[i].name, players[i].score);
+
+    printf("Winner: %s", players[winner].name);
+}
