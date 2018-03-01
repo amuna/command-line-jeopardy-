@@ -41,17 +41,17 @@ int main(int argc, char *argv[])
     char buffer[BUFFER_LEN] = { 0 };
     char cat[BUFFER_LEN] = { 0 };
     int value;
+    char playerTurn[BUFFER_LEN] = { 0 };
 
     // Display the game introduction and initialize the questions
     initialize_game();
-    display_categories();
 
     // Prompt for players names
-	for(int i = 0; i < 4;i++){
+    printf("Welcome to the game!\n");
+	for(int i = 1; i < 5;i++){
 		players[i].score = 0;
 		
-		printf("Welcome to the game!");
-		printf("Please enter your name:");
+		printf("Player%d, enter your name: ", i);
 		scanf("%s",(char*)&players[i].name);
 	
 	}
@@ -65,24 +65,24 @@ int main(int argc, char *argv[])
 	
     while (game_state)
     {
-        // EXAMPLE: This line gets a line of input from the user
-      //  fgets(buffer, BUFFER_LEN, stdin);
-      //  printf("[before]%s[after]", buffer);
-
-	//	if (strcmp(buffer, "hello\n") == 0) printf(":)\n");
-	//	if (strcmp(buffer, "world\n") == 0) printf(":)\n");
 
         // Call functions from the questions and players source files
+        display_categories();
+
+        int r = rand() % 5;
+
+        printf("%s, it is your turn\n", players[r].name);
+
         printf("Choose a category: ");
         scanf("%s", cat);
         printf("Catagory chosen: %s\n", cat);
 
         printf("Choose points:");
         scanf("%d", &value);
-        printf("Value chosen:%d\n", value);
+        printf("Value chosen:%d\n\n", value);
 
         while (already_answered(cat, value)) {
-            printf("Not valid category/value. Please enter again");
+            printf("Not valid category/value. Please enter again\n");
             
             printf("Choose a category: ");
             scanf("%s", cat);
@@ -90,10 +90,17 @@ int main(int argc, char *argv[])
 
             printf("Choose points:");
             scanf("%d", &value);
-            printf("Value chosen:%d\n", value);
+            printf("Value chosen:%d\n\n", value);
         }
+
         display_question(cat, value);
         
+        printf("Write your answer:");
+        scanf("%s", buffer);
+
+        if(valid_answer(cat, value, buffer)) {
+            update_score(players, 4, players[r].name, value);
+        }
         
         // Execute the game until all questions are answered
 

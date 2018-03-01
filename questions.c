@@ -1,7 +1,7 @@
 /*
  * Tutorial 4 Jeopardy Project for SOFE 3950U / CSCI 3020U: Operating Systems
  *
- * Copyright (C) 2015, <GROUP MEMBERS>
+ * Copyright (C) 2015, <Ahmed Naeem, Chen Pi, Zain Ansari>
  * All rights reserved.
  *
  */
@@ -11,6 +11,7 @@
 #include "questions.h"
 
 // Initializes the array of questions for the game
+question questions[NUM_QUESTIONS];
 void initialize_game(void)
 {
     // initialize each question struct and assign it to the questions array
@@ -20,7 +21,7 @@ void initialize_game(void)
     strcpy(questions[0].question, "A variable of this type doesn't contain the value directly.");
     strcpy(questions[0].answer, "non primitive");
     questions[0].value = 100;
-    questions[0].answered = true;
+    questions[0].answered = false;
 
     strcpy(questions[1].category, "algorithm");
     strcpy(questions[1].question, "The type of algorithm that takes the most optimal choice on each stage is");
@@ -116,6 +117,7 @@ void display_question(char *category, int value)
     while(i<NUM_QUESTIONS) {
         if ((!strcmp(questions[i].category, category)) && questions[i].value == value) { 
             printf("%s\n", questions[i].question);
+            questions[i].answered = true;
         } 
         i++;
     }
@@ -125,7 +127,19 @@ void display_question(char *category, int value)
 bool valid_answer(char *category, int value, char *answer)
 {
     // Look into string comparison functions
-    return false;
+        int i = 0;
+        while(i<NUM_QUESTIONS) {
+            if ((!strcmp(questions[i].category, category)) && questions[i].value == value) { 
+                if (!strcmp(questions[i].answer, answer)) {
+                    printf("Correct\n");
+                    return true;
+                } else {
+                    printf("Incorrect. Answer was: %s\n", questions[i].answer);
+                    return false;
+                }
+            } 
+            i++;
+    }
 }
 
 // Returns true if the question has already been answered
@@ -136,6 +150,7 @@ bool already_answered(char *category, int value)
     while(i<NUM_QUESTIONS) {
         if ((!strcmp(questions[i].category, category)) && questions[i].value == value) { 
             if(questions[i].answered == true) {
+                printf("Exists");
                 return true;
             } 
         } 
