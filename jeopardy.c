@@ -31,11 +31,11 @@ int game_state;
 int main(int argc, char *argv[])
 {
     // An array of 4 players, may need to be a pointer if you want it set dynamically
-    struct player players[NUM_PLAYERS];
+    player players[NUM_PLAYERS];
 
     // EXAMPLE: player 1 is named Fred
-    strcpy(players[0].name, "Fred");
-    printf("%s\n", players[0].name);
+    //strcpy(players[0].name, "Fred");
+    //printf("%s\n", players[0].name);
     
     // Buffer for user input
     char buffer[BUFFER_LEN] = { 0 };
@@ -47,11 +47,22 @@ int main(int argc, char *argv[])
     display_categories();
 
     // Prompt for players names
+	for(int i = 0; i < 4;i++){
+		players[i].score = 0;
+		
+		printf("Welcome to the game!");
+		printf("Please enter your name:");
+		scanf("%s",(char*)&players[i].name);
+	
+	}
     
     // initialize each of the players in the array
 
     // Perform an infinite loop getting command input from users until game ends
     game_state = 1;
+	
+	
+	
     while (game_state)
     {
         // EXAMPLE: This line gets a line of input from the user
