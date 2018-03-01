@@ -6,17 +6,7 @@
 #include <string.h>
 #include "players.h"
 
-//ask for input four player name
-void player_register(void)
-{
-    printf("Please register for Jeopardy");
-    
-    for(int i = 0; i<4;++i){
-        player[i].score = 0;
-        printf("Please enter the game\n");
-        scanf("%s\n",player[i].name);
-    }
-}
+
 
 bool player_exists(player *players, char *name)
 {
